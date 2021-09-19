@@ -1,3 +1,7 @@
+import BLOCKS from "./blocks.js";
+
+
+
 // Dom
 const playground = document.querySelector(".playground > ul");
 
@@ -13,14 +17,7 @@ let duration = 500;
 let downInterval;
 let tempMovingItem;
 
-const BLOCKS ={
-    tree: [
-        [[2,1],[0,1],[1,0],[1,1]],
-        [[1,2],[0,1],[1,0],[1,1]],
-        [[1,2],[0,1],[2,1],[1,1]],
-        [[2,1],[1,2],[1,0],[1,1]],
-    ]
-}
+
 
 
 const movingItem = {
