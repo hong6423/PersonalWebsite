@@ -99,7 +99,7 @@ function generateNewBlock(){
     movingItem.direction = 0;
     tempMovingItem = { ...movingItem};
     renderBlocks()
-}
+}  
 
 
 function checkEmpty(target){
