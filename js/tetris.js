@@ -21,7 +21,7 @@ let tempMovingItem;
 
 
 const movingItem = {
-    type: "tree",
+    type: "",
     direction: 3,
     top: 0,
     left: 0,
@@ -36,7 +36,7 @@ function init(){
     for(let i = 0; i < GAME_ROW; i++){
         prependNewLine()
     }
-    renderBlocks()
+    generateNewBlock()
 }
 function prependNewLine(){
     const li = document.createElement("li");
@@ -91,10 +91,15 @@ function seizBlock(){
     generateNewBlock()
 }
 function generateNewBlock(){
+
+    clearInterval(downInterval);
+    downInterval = setInterval(()=>{
+        moveBlock('top',1)
+    },duration)
+
+
     const blockArray = Object.entries(BLOCKS);
-    const randomIndex = Math.floor(Math.random()*blockArray.length)
-    
-   
+    const randomIndex = Math.floor(Math.random() * blockArray.length)
     movingItem.type = blockArray[randomIndex][0]
     movingItem.top = 0;
     movingItem.left = 3;
@@ -135,6 +140,8 @@ document.addEventListener("keydown", e => {
         case 38:
             changDirection();
             break;  
+        case 32:
+            dropBlocks
         default:
             break;
     }
