@@ -31,7 +31,7 @@ const movingItem = {
 init()
 
 //functions
-function init(){
+function init(){    
     tempMovingItem = { ...movingItem};
     for(let i = 0; i < GAME_ROW; i++){
         prependNewLine()
@@ -91,6 +91,11 @@ function seizBlock(){
     generateNewBlock()
 }
 function generateNewBlock(){
+    const blockArray = Object.entries(BLOCKS);
+    const randomIndex = Math.floor(Math.random()*blockArray.length)
+    
+   
+    movingItem.type = blockArray[randomIndex][0]
     movingItem.top = 0;
     movingItem.left = 3;
     movingItem.direction = 0;
