@@ -4,8 +4,9 @@ import BLOCKS from "./blocks.js";
 
 // Dom
 const playground = document.querySelector(".playground > ul");
-
-
+const gameText = document.querySelector(".game-text");
+const scoreDisplay = document.querySelector(".score");
+const restartButton = document.querySelector(".game-text > button");
 // Setting
 //console.log(playground)
 const GAME_ROW = 20;
@@ -64,9 +65,12 @@ function renderBlocks(moveType = ""){
             target.classList.add(type, "moving")
         }else{
             tempMovingItem = { ...movingItem}
+            if(moveType ==='retry'){
+                clearInterval(downInterval)
+                showGameoverText()
+            }
             setTimeout(() => {
-                
-                renderBlocks();
+                renderBlocks('retry');
                 if(moveType == "top"){
                     seizBlock();
 
@@ -88,8 +92,30 @@ function seizBlock(){
         moving.classList.remove("moving");
         moving.classList.add("seized");
     })
+    checkMatch()
+}
+
+function checkMatch(){
+
+    const childNodes = playground.childNodes;
+    childNodes.forEach(child=>{
+        let matched = true;
+        child.children[0].childNodes.forEach(li=>{
+            if(!li.classList.contains("seized")){
+                matched = false;
+            }
+        })
+        if(matched){
+            child.remove();
+            prependNewLine()
+            score++;
+            scoreDisplay.innerText = score;
+        }
+    })
+
     generateNewBlock()
 }
+
 function generateNewBlock(){
 
     clearInterval(downInterval);
@@ -124,7 +150,16 @@ function changDirection(){
     direction ===3 ? tempMovingItem.direction = 0: tempMovingItem.direction += 1;
     renderBlocks()
 }
+function dropBlock(){
+    clearInterval(downInterval);
+    downInterval = setInterval(()=>{
+        moveBlock("top",1)
+    },10)
+}
 
+function showGameoverText(){
+    gameText.style.display = "flex"
+}
 //event handling
 document.addEventListener("keydown", e => {
     switch(e.keyCode){
@@ -141,9 +176,15 @@ document.addEventListener("keydown", e => {
             changDirection();
             break;  
         case 32:
-            dropBlocks
+            dropBlock();
+            break;
         default:
             break;
     }
-    //console.log(e)
+})
+
+restartButton.addEventListener("click",()=>{
+    playground.innerHTML = "";
+    gameText.style.display = "none"
+    init()
 })
