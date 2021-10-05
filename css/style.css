@@ -59,22 +59,22 @@ body{
     outline: 1px solid #ccc;
 }
 .bar {
-    background: salmon;
+    background: rgb(205, 203, 209);
 }
 .tree {
-    background: #67c23a;
+    background: #1f410e;
 }
 .zee {
-    background: #e6a23c;
+    background: #f1a129;
 }
 .elLeft {
-    background: #8e44ad;
+    background: #9068a1;
 }
 .elRight {
-    background: #16a085;
+    background: #46c4aa;
 }
 .square {
-    background: #2c82c9;
+    background: #0b365a;
 }
 
 
